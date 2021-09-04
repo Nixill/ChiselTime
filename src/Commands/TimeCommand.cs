@@ -17,7 +17,7 @@ namespace Nixill.Discord.ChiselTime.Commands
     {
       DateTimeZone zone = null;
 
-      if (timezoneStr != null) zone = ChiselTzdb.GetZoneOrNull(timezoneStr);
+      if (timezoneStr != null) zone = ChiselTzdb.Instance.GetZoneOrNull(timezoneStr);
       if (zone == null) zone = await UserDateTimeZoneLookup.GetInstance().GetZone(ctx.User.Id);
     }
   }
