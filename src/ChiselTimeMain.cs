@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.SlashCommands;
 using Nixill.Discord.ChiselTime.Commands;
+using NodaTime;
 
 namespace Nixill.Discord.ChiselTime
 {
@@ -12,6 +13,9 @@ namespace Nixill.Discord.ChiselTime
     internal static SlashCommandsExtension Commands;
 
     internal static ulong Owner;
+
+    internal static IClock Clock;
+    internal static IClock SysClock;
 
     static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
 
@@ -23,6 +27,11 @@ namespace Nixill.Discord.ChiselTime
 #else
       string botToken = File.ReadAllLines("cfg/token.cfg")[0];
 #endif
+
+      // Start the clock
+      // Non-debug mode uses the system clock only; debug mode clock can be changed with a command.
+      SysClock = SystemClock.Instance;
+      Clock = SysClock;
 
       Discord = new DiscordClient(new DiscordConfiguration()
       {

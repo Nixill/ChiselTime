@@ -15,10 +15,18 @@ namespace Nixill.Discord.ChiselTime.Commands
       [Option("zone", "The time zone to use; defaults to the user's or UTC if not set")] string timezoneStr = null,
       [Option("dst", "Whether or not a time is during DST. ONLY NEEDED for times in the overlap when clocks are turned back. Ignored otherwise.")] bool? dst = null)
     {
+      // First parse the time
+      LocalTime time;
+
+
+
       DateTimeZone zone = null;
 
       if (timezoneStr != null) zone = ChiselTzdb.Instance.GetZoneOrNull(timezoneStr);
       if (zone == null) zone = await UserDateTimeZoneLookup.GetInstance().GetZone(ctx.User.Id);
+      // The second method returns UTC otherwise
+
+
     }
   }
 }
