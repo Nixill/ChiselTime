@@ -4,9 +4,9 @@ using DSharpPlus;
 using DSharpPlus.SlashCommands;
 using Nixill.Discord.ChiselTime.Commands;
 
-namespace Nixill.Discord.ShadowRoller
+namespace Nixill.Discord.ChiselTime
 {
-  public class ShadowRollerMain
+  public class ChiselTimeMain
   {
     internal static DiscordClient Discord;
     internal static SlashCommandsExtension Commands;

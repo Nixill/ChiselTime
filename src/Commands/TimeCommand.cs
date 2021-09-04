@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using DSharpPlus.SlashCommands;
+using Nixill.Discord.ChiselTime.Timezones;
 using NodaTime;
 
 namespace Nixill.Discord.ChiselTime.Commands
@@ -16,10 +17,8 @@ namespace Nixill.Discord.ChiselTime.Commands
     {
       DateTimeZone zone = null;
 
-      if (timezoneStr == null)
-      {
-
-      }
+      if (timezoneStr != null) zone = ChiselTzdb.GetZoneOrNull(timezoneStr);
+      if (zone == null) zone = await UserDateTimeZoneLookup.GetInstance().GetZone(ctx.User.Id);
     }
   }
 }
