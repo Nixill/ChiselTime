@@ -1,56 +1,48 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading.Tasks;
+using Nixill.Collections;
 using NodaTime;
 
 namespace Nixill.Discord.ChiselTime.Timezones
 {
   public class ChiselTzdb : IDateTimeZoneProvider
   {
-    private Dictionary<string, DateTimeZone> Zones = new Dictionary<string, DateTimeZone>();
+    private static ChiselTzdb _Instance;
+    private DictionaryGenerator<string, ChiselZone> Keywords = new(new Dictionary<string, ChiselZone>(), new DefaultGenerator<string, ChiselZone>());
 
-    public static readonly ChiselTzdb Instance = new ChiselTzdb();
-
-    private ChiselTzdb()
+    public static ChiselTzdb Instance
     {
-      IDateTimeZoneProvider tzdb = DateTimeZoneProviders.Tzdb;
-      foreach (string id in tzdb.Ids)
+      get
       {
-        foreach (string subId in Spliterate(id.ToLower()))
+        if (_Instance == null)
         {
-          if (Zones.ContainsKey(subId)) Zones[subId] = null;
-          else Zones[subId] = tzdb[id];
+          _Instance = new ChiselTzdb();
         }
+        return _Instance;
       }
     }
 
-    private IEnumerable<string> Spliterate(string id)
-    {
-      id.Replace('_', ' ').Replace('-', ' ');
-      int index = 1;
+    public DateTimeZone this[string id] => throw new System.NotImplementedException();
 
-      while (index > 0)
-      {
-        yield return id;
-        index = id.IndexOf('/') + 1;
-        id = id.Substring(index);
-      }
-    }
+    public string VersionId => throw new System.NotImplementedException();
 
-    public DateTimeZone this[string id] => Zones[id];
-
-    public string VersionId => DateTimeZoneProviders.Tzdb.VersionId;
-
-    public ReadOnlyCollection<string> Ids => new ReadOnlyCollection<string>(Zones.Where(x => x.Key != null).Select(x => x.Key).ToList());
+    public ReadOnlyCollection<string> Ids => throw new System.NotImplementedException();
 
     public DateTimeZone GetSystemDefault()
     {
-      return DateTimeZoneProviders.Tzdb.GetSystemDefault();
+      throw new System.NotImplementedException();
     }
 
     public DateTimeZone GetZoneOrNull(string id)
     {
-      return Zones.GetValueOrDefault(id);
+      throw new System.NotImplementedException();
     }
+  }
+
+  internal class ChiselZone
+  {
+
   }
 }

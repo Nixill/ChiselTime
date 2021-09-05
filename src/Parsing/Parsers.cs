@@ -7,7 +7,8 @@ namespace Nixill.Discord.ChiselTime.Parsing
 {
   public static class Parsers
   {
-    public static Regex RgxTime = new Regex(@"^(\d\d?)[:,. h]*(\d\d)[:,. m]*(?:(\d\d)s?)? ?(?:([ap])(?:m|.|.m.))?$");
+    public static Regex RgxTime = new Regex(@"^(\d\d?)[:,. h時]*(\d\d)[:,. m分]*(?:(\d\d)s?)? ?(?:([ap])(?:m|.|.m.))?$");
+    public static Regex RgxDate = new Regex(@"");
 
     public static (LocalTime, bool) ParseTime(string time, ZonedDateTime now)
     {
