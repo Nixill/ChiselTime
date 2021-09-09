@@ -23,7 +23,7 @@ namespace Nixill.Discord.ChiselTime.Commands
       [Option("time", "The time to view")] string timeStr,
       [Option("date", "The date to view; defaults to the next time the specified time occurs")] string dateStr = null,
       [Option("zone", "The time zone to use; defaults to the user's or UTC if not set")] string timezoneStr = null,
-      [Option("dst", "Whether or not a time is during DST. ONLY NEEDED for times in an overlap or gap caused by a clock shift. Ignored otherwise.")] bool? dst = null)
+      [Option("dst", "Whether a time is during DST. ONLY NEEDED for times in an overlap or gap caused by a clock shift.")] bool? dst = null)
     {
       await ctx.DeferAsync();
 

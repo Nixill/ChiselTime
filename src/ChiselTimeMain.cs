@@ -28,6 +28,8 @@ namespace Nixill.Discord.ChiselTime
       string botToken = File.ReadAllLines("cfg/token.cfg")[0];
 #endif
 
+      Owner = ulong.Parse(File.ReadAllLines("cfg/owner.txt")[0]);
+
       // Start the clock
       // Non-debug mode uses the system clock only; debug mode clock can be changed with a command.
       SysClock = SystemClock.Instance;
