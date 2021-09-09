@@ -25,7 +25,7 @@ namespace Nixill.Discord.ChiselTime.Commands
       [Option("zone", "The time zone to use; defaults to the user's or UTC if not set")] string timezoneStr = null,
       [Option("dst", "Whether a time is during DST. ONLY NEEDED for times in an overlap or gap caused by a clock shift.")] bool? dst = null)
     {
-      await ctx.DeferAsync();
+      await ctx.ReplyEphemeralAsync("Just a moment please!");
 
       LocalTime time = default(LocalTime);
       LocalDate date = default(LocalDate);
@@ -69,23 +69,23 @@ namespace Nixill.Discord.ChiselTime.Commands
         long unix = zoned.ToInstant().ToUnixTimeSeconds();
 
         // And finally, send it to the user!
-        await ctx.ReplyEphemeralAsync($"<t:{unix}>");
+        await ctx.EditAsync($"`<t:{unix}>`");
       }
       catch (AmbiguousTimeException)
       {
-        await ctx.ReplyEphemeralAsync($"{time} is an ambiguous time (occurs twice) on {date}. Use the `dst` parameter to pick a time:\n"
+        await ctx.EditAsync($"{time} is an ambiguous time (occurs twice) on {date}. Use the `dst` parameter to pick a time:\n"
           + "• `True` selects the earlier of the times, before the clocks are changed.\n"
           + "• `False` selects the later of the times, after the clocks are changed.");
       }
       catch (SkippedTimeException)
       {
-        await ctx.ReplyEphemeralAsync($"{time} is a skipped time (does not occur) on {date}. Pick another time or use the `dst` parameter to select a time outside the gap:\n"
+        await ctx.EditAsync($"{time} is a skipped time (does not occur) on {date}. Pick another time or use the `dst` parameter to select a time outside the gap:\n"
           + "• `True` selects the moment after the gap, once the clocks are changed.\n"
           + "• `False` selects the moment before the gap, before the clocks are changed.");
       }
       catch (ArgumentException)
       {
-        await ctx.ReplyEphemeralAsync($"Either {timeStr} is not a valid time, or {dateStr} is not a valid date.");
+        await ctx.EditAsync($"Either {timeStr} is not a valid time, or {dateStr} is not a valid date.");
       }
     }
   }
