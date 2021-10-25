@@ -36,8 +36,12 @@ namespace Nixill.Discord.ChiselTime.Commands
         DateTimeZone zone = null;
 
         if (timezoneStr != null) zone = ChiselTzdb.Instance.GetZoneOrNull(timezoneStr);
+        /*
         if (zone == null) zone = await UserDateTimeZoneLookup.GetInstance().GetZone(ctx.User.Id);
         // The second method returns UTC otherwise
+        /*/
+        if (zone == null) zone = DateTimeZone.Utc;
+        // */
 
         // Get the current time in that zone
         ZonedDateTime now = ChiselTimeMain.Clock.GetCurrentInstant().InZone(zone);
@@ -85,7 +89,12 @@ namespace Nixill.Discord.ChiselTime.Commands
       }
       catch (ArgumentException)
       {
-        await ctx.EditAsync($"Either {timeStr} is not a valid time, or {dateStr} is not a valid date.");
+        if (dateStr != null) await ctx.EditAsync($"Either {timeStr} is not a valid time, or {dateStr} is not a valid date.");
+        else await ctx.EditAsync($"{timeStr} is not a valid time.");
+      }
+      catch (Exception ex)
+      {
+        await ctx.EditAsync($"Something else went wrong: {ex}");
       }
     }
   }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.SlashCommands;
 using Nixill.Discord.ChiselTime.Commands;
+using Nixill.Discord.ChiselTime.Timezones;
 using NodaTime;
 
 namespace Nixill.Discord.ChiselTime
@@ -34,6 +35,9 @@ namespace Nixill.Discord.ChiselTime
       // Non-debug mode uses the system clock only; debug mode clock can be changed with a command.
       SysClock = SystemClock.Instance;
       Clock = SysClock;
+
+      // Start the userdatetimezonelookup thingy
+      await UserDateTimeZoneLookup.StartInstance();
 
       Discord = new DiscordClient(new DiscordConfiguration()
       {
