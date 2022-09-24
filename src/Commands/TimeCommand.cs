@@ -74,6 +74,10 @@ namespace Nixill.Discord.ChiselTime.Commands
 
         // And finally, send it to the user!
         await ctx.EditAsync($"`<t:{unix}>`");
+
+        // Also send context to make sure it looks right.
+        // Eventually there will be an option to disable this.
+
       }
       catch (AmbiguousTimeException)
       {
