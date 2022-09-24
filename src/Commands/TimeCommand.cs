@@ -11,7 +11,7 @@ using NodaTime.TimeZones;
 namespace Nixill.Discord.ChiselTime.Commands
 {
   [SlashCommandGroup("time", "Commands for using timestamp codes")]
-  public class TimeCommand : SlashCommandModule
+  public class TimeCommand : ApplicationCommandModule
   {
     public static ZoneLocalMappingResolver DstResolver = Resolvers.CreateMappingResolver(Resolvers.ReturnEarlier, Resolvers.ReturnStartOfIntervalAfter);
     public static ZoneLocalMappingResolver NotDstResolver = Resolvers.CreateMappingResolver(Resolvers.ReturnLater, Resolvers.ReturnEndOfIntervalBefore);
