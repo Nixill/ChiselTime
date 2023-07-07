@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Nixill.Discord.ChiselTime.Parsing;
 using Nixill.Discord.ChiselTime.Timezones;
@@ -23,7 +24,10 @@ namespace Nixill.Discord.ChiselTime.Commands
       [Option("time", "The time to view")] string timeStr,
       [Option("date", "The date to view; defaults to the next time the specified time occurs")] string dateStr = null,
       [Option("zone", "The time zone to use; defaults to the user's or UTC if not set")] string timezoneStr = null,
-      [Option("dst", "Whether a time is during DST. ONLY NEEDED for times in an overlap or gap caused by a clock shift.")] bool? dst = null)
+      [Option("dst", "Whether a time is during DST. ONLY NEEDED for times in an overlap or gap caused by a clock shift.")] bool? dst = null,
+      [Option("current_time", "Your current time (alternative to zone).")] string currentTime = null,
+      [Option("display_type", "Whether to show date, time, or both.")] DateTimeType? dtt = null,
+      [Option("short_time", "Use short date instead of long.")] bool? shortTime = null)
     {
       await ctx.ReplyEphemeralAsync("Just a moment please!");
 
@@ -72,12 +76,21 @@ namespace Nixill.Discord.ChiselTime.Commands
         // Now convert it to a Unix timestamp.
         long unix = zoned.ToInstant().ToUnixTimeSeconds();
 
+        // Now we should determine the user's format settings.
+
+
         // And finally, send it to the user!
         await ctx.EditAsync($"`<t:{unix}>`");
 
         // Also send context to make sure it looks right.
         // Eventually there will be an option to disable this.
-
+        await ctx.FollowUpAsync(new DiscordFollowupMessageBuilder()
+        {
+          IsEphemeral = true,
+          Content = $"The above message is the code for <t:{unix}:f> (displayed as <t:{unix}>) in your time zone.\n"
+          + "If this doesn't seem right, [todo timezone help].\n"
+          + "You can permanently disable this message by [todo disable message]."
+        });
       }
       catch (AmbiguousTimeException)
       {
@@ -100,6 +113,13 @@ namespace Nixill.Discord.ChiselTime.Commands
       {
         await ctx.EditAsync($"Something else went wrong: {ex}");
       }
+    }
+
+    public enum DateTimeType
+    {
+      [ChoiceName("Date")] Date,
+      [ChoiceName("Time")] Time,
+      [ChoiceName("Date and time")] DateTime
     }
   }
 }
