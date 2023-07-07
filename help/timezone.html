@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<head>
+  <title>ChiselTime Timezone Helper</title>
+  <script src="luxon.js"></script>
+</head>
+
+<body>
+  <p>You are in the <span style="font-weight: bold;" id="zone">UNKNOWN</span> time zone.</p>
+  <p>Please run the command <span style="font-family: monospace;">/set timezone <span id="zone2">UNKNOWN</span></span>
+    on ChiselTime.</p>
+
+  <script>
+    var DateTime = luxon.DateTime;
+    var zone = DateTime.now().zoneName;
+    document.getElementById("zone").innerHTML = zone;
+    document.getElementById("zone2").innerHTML = zone;
+  </script>
+</body>
