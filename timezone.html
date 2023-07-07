@@ -8,19 +8,29 @@
 <body>
   <p id="warning" style="font-weight: bold;">If you can see this text, scripts did not run properly. Please unblock
     javascript and try again.</p>
-  <p>You are in the <span style="font-weight: bold;" id="zone">UNKNOWN</span> time zone.</p>
-  <p>Please run the command <span style="font-family: monospace;">/set timezone <span id="zone2">UNKNOWN</span></span>
-    on ChiselTime.</p>
+  <p>Your current time has been detected as <span style="font-weight: bold;" id="time">00:00</span>, within the <span
+      style="font-weight: bold;" id="zone">UNKNOWN</span> time zone.</p>
+  <p>Please run the command <span style="font-family: monospace;" id="command">/set timezone <span
+        id="zone2">UNKNOWN</span></span> on ChiselTime.</p>
+  <p><a href="#" id="copyLink">Click or tap here to copy this command.</a></p>
   <p style="font-style: italic;">This information was generated locally on your machine and has not been sent to any
     servers. It is not currently stored anywhere, but if you run the command shown above, your time zone will be stored
     on the ChiselTime bot until changed or removed.</p>
 
   <script>
     var DateTime = luxon.DateTime;
-    var zone = DateTime.now().zoneName;
+    var time = DateTime.now();
+    var zone = time.zoneName;
+
+    document.getElementById("time").innerHTML = time.toLocaleString(DateTime.TIME_SIMPLE);
     document.getElementById("zone").innerHTML = zone;
     document.getElementById("zone2").innerHTML = zone;
 
     document.getElementById("warning").remove();
+
+    document.getElementById("copyLink").addEventListener("click", () => {
+      document.getElementById("command").select();
+      document.execCommand("copy");
+    })
   </script>
 </body>
