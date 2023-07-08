@@ -1,3 +1,23 @@
+// Copyright 2019 JS Foundation and other contributors
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files(the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+
 var luxon = (function (exports) {
   'use strict';
 
@@ -55,7 +75,7 @@ var luxon = (function (exports) {
     if (Reflect.construct.sham) return false;
     if (typeof Proxy === "function") return true;
     try {
-      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () { }));
       return true;
     } catch (e) {
       return false;
@@ -410,7 +430,7 @@ var luxon = (function (exports) {
    * @interface
    */
   var Zone = /*#__PURE__*/function () {
-    function Zone() {}
+    function Zone() { }
     var _proto = Zone.prototype;
     /**
      * Returns the offset's common name (such as EST) at the specified timestamp
@@ -465,14 +485,14 @@ var luxon = (function (exports) {
     _createClass(Zone, [{
       key: "type",
       get:
-      /**
-       * The type of zone
-       * @abstract
-       * @type {string}
-       */
-      function get() {
-        throw new ZoneIsAbstractError();
-      }
+        /**
+         * The type of zone
+         * @abstract
+         * @type {string}
+         */
+        function get() {
+          throw new ZoneIsAbstractError();
+        }
 
       /**
        * The name of this zone.
@@ -547,9 +567,9 @@ var luxon = (function (exports) {
     _createClass(SystemZone, [{
       key: "type",
       get: /** @override **/
-      function get() {
-        return "system";
-      }
+        function get() {
+          return "system";
+        }
 
       /** @override **/
     }, {
@@ -572,16 +592,16 @@ var luxon = (function (exports) {
     }], [{
       key: "instance",
       get:
-      /**
-       * Get a singleton instance of the local zone
-       * @return {SystemZone}
-       */
-      function get() {
-        if (singleton$1 === null) {
-          singleton$1 = new SystemZone();
+        /**
+         * Get a singleton instance of the local zone
+         * @return {SystemZone}
+         */
+        function get() {
+          if (singleton$1 === null) {
+            singleton$1 = new SystemZone();
+          }
+          return singleton$1;
         }
-        return singleton$1;
-      }
     }]);
     return SystemZone;
   }(Zone);
@@ -842,8 +862,8 @@ var luxon = (function (exports) {
       opts = {};
     }
     var _opts = opts;
-      _opts.base;
-      var cacheKeyOpts = _objectWithoutPropertiesLoose(_opts, _excluded); // exclude `base` from the options
+    _opts.base;
+    var cacheKeyOpts = _objectWithoutPropertiesLoose(_opts, _excluded); // exclude `base` from the options
     var key = JSON.stringify([locString, cacheKeyOpts]);
     var inf = intlRelCache[key];
     if (!inf) {
@@ -955,8 +975,8 @@ var luxon = (function (exports) {
       this.padTo = opts.padTo || 0;
       this.floor = opts.floor || false;
       opts.padTo;
-        opts.floor;
-        var otherOpts = _objectWithoutPropertiesLoose(opts, _excluded2);
+      opts.floor;
+      var otherOpts = _objectWithoutPropertiesLoose(opts, _excluded2);
       if (!forceSimple || Object.keys(otherOpts).length > 0) {
         var intlOpts = _extends({
           useGrouping: false
@@ -1186,11 +1206,11 @@ var luxon = (function (exports) {
       }
       return listStuff(this, length, defaultOK, months, function () {
         var intl = format ? {
-            month: length,
-            day: "numeric"
-          } : {
-            month: length
-          },
+          month: length,
+          day: "numeric"
+        } : {
+          month: length
+        },
           formatStr = format ? "format" : "standalone";
         if (!_this2.monthsCache[formatStr][length]) {
           _this2.monthsCache[formatStr][length] = mapMonths(function (dt) {
@@ -1210,13 +1230,13 @@ var luxon = (function (exports) {
       }
       return listStuff(this, length, defaultOK, weekdays, function () {
         var intl = format ? {
-            weekday: length,
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          } : {
-            weekday: length
-          },
+          weekday: length,
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        } : {
+          weekday: length
+        },
           formatStr = format ? "format" : "standalone";
         if (!_this3.weekdaysCache[formatStr][length]) {
           _this3.weekdaysCache[formatStr][length] = mapWeekdays(function (dt) {
@@ -1420,16 +1440,16 @@ var luxon = (function (exports) {
     }], [{
       key: "utcInstance",
       get:
-      /**
-       * Get a singleton instance of UTC
-       * @return {FixedOffsetZone}
-       */
-      function get() {
-        if (singleton === null) {
-          singleton = new FixedOffsetZone(0);
+        /**
+         * Get a singleton instance of UTC
+         * @return {FixedOffsetZone}
+         */
+        function get() {
+          if (singleton === null) {
+            singleton = new FixedOffsetZone(0);
+          }
+          return singleton;
         }
-        return singleton;
-      }
     }]);
     return FixedOffsetZone;
   }(Zone);
@@ -1509,7 +1529,7 @@ var luxon = (function (exports) {
       return input;
     } else if (isString(input)) {
       var lowered = input.toLowerCase();
-      if (lowered === "default") return defaultZone;else if (lowered === "local" || lowered === "system") return SystemZone.instance;else if (lowered === "utc" || lowered === "gmt") return FixedOffsetZone.utcInstance;else return FixedOffsetZone.parseSpecifier(lowered) || IANAZone.create(input);
+      if (lowered === "default") return defaultZone; else if (lowered === "local" || lowered === "system") return SystemZone.instance; else if (lowered === "utc" || lowered === "gmt") return FixedOffsetZone.utcInstance; else return FixedOffsetZone.parseSpecifier(lowered) || IANAZone.create(input);
     } else if (isNumber(input)) {
       return FixedOffsetZone.instance(input);
     } else if (typeof input === "object" && input.offset && typeof input.offset === "number") {
@@ -1522,8 +1542,8 @@ var luxon = (function (exports) {
   }
 
   var now = function now() {
-      return Date.now();
-    },
+    return Date.now();
+  },
     defaultZone = "system",
     defaultLocale = null,
     defaultNumberingSystem = null,
@@ -1535,7 +1555,7 @@ var luxon = (function (exports) {
    * Settings contains static getters and setters that control Luxon's overall behavior. Luxon is a simple library with few options, but the ones it does have live here.
    */
   var Settings = /*#__PURE__*/function () {
-    function Settings() {}
+    function Settings() { }
     /**
      * Reset Luxon's global caches. Should only be necessary in testing scenarios.
      * @return {void}
@@ -1547,13 +1567,13 @@ var luxon = (function (exports) {
     _createClass(Settings, null, [{
       key: "now",
       get:
-      /**
-       * Get the callback for returning the current timestamp.
-       * @type {function}
-       */
-      function get() {
-        return now;
-      }
+        /**
+         * Get the callback for returning the current timestamp.
+         * @type {function}
+         */
+        function get() {
+          return now;
+        }
 
       /**
        * Set the callback for returning the current timestamp.
@@ -1574,14 +1594,14 @@ var luxon = (function (exports) {
     }, {
       key: "defaultZone",
       get:
-      /**
-       * Get the default time zone object currently used to create DateTimes. Does not affect existing instances.
-       * The default value is the system's time zone (the one set on the machine that runs this code).
-       * @type {Zone}
-       */
-      function get() {
-        return normalizeZone(defaultZone, SystemZone.instance);
-      }
+        /**
+         * Get the default time zone object currently used to create DateTimes. Does not affect existing instances.
+         * The default value is the system's time zone (the one set on the machine that runs this code).
+         * @type {Zone}
+         */
+        function get() {
+          return normalizeZone(defaultZone, SystemZone.instance);
+        }
 
       /**
        * Get the default locale to create DateTimes with. Does not affect existing instances.
@@ -2432,27 +2452,27 @@ var luxon = (function (exports) {
     _proto.formatDurationFromString = function formatDurationFromString(dur, fmt) {
       var _this2 = this;
       var tokenToField = function tokenToField(token) {
-          switch (token[0]) {
-            case "S":
-              return "millisecond";
-            case "s":
-              return "second";
-            case "m":
-              return "minute";
-            case "h":
-              return "hour";
-            case "d":
-              return "day";
-            case "w":
-              return "week";
-            case "M":
-              return "month";
-            case "y":
-              return "year";
-            default:
-              return null;
-          }
-        },
+        switch (token[0]) {
+          case "S":
+            return "millisecond";
+          case "s":
+            return "second";
+          case "m":
+            return "minute";
+          case "h":
+            return "hour";
+          case "d":
+            return "day";
+          case "w":
+            return "week";
+          case "M":
+            return "month";
+          case "y":
+            return "year";
+          default:
+            return null;
+        }
+      },
         tokenToString = function tokenToString(lildur) {
           return function (token) {
             var mapped = tokenToField(token);
@@ -2771,32 +2791,32 @@ var luxon = (function (exports) {
 
   // unit conversion constants
   var lowOrderMatrix = {
-      weeks: {
-        days: 7,
-        hours: 7 * 24,
-        minutes: 7 * 24 * 60,
-        seconds: 7 * 24 * 60 * 60,
-        milliseconds: 7 * 24 * 60 * 60 * 1000
-      },
-      days: {
-        hours: 24,
-        minutes: 24 * 60,
-        seconds: 24 * 60 * 60,
-        milliseconds: 24 * 60 * 60 * 1000
-      },
-      hours: {
-        minutes: 60,
-        seconds: 60 * 60,
-        milliseconds: 60 * 60 * 1000
-      },
-      minutes: {
-        seconds: 60,
-        milliseconds: 60 * 1000
-      },
-      seconds: {
-        milliseconds: 1000
-      }
+    weeks: {
+      days: 7,
+      hours: 7 * 24,
+      minutes: 7 * 24 * 60,
+      seconds: 7 * 24 * 60 * 60,
+      milliseconds: 7 * 24 * 60 * 60 * 1000
     },
+    days: {
+      hours: 24,
+      minutes: 24 * 60,
+      seconds: 24 * 60 * 60,
+      milliseconds: 24 * 60 * 60 * 1000
+    },
+    hours: {
+      minutes: 60,
+      seconds: 60 * 60,
+      milliseconds: 60 * 60 * 1000
+    },
+    minutes: {
+      seconds: 60,
+      milliseconds: 60 * 1000
+    },
+    seconds: {
+      milliseconds: 1000
+    }
+  },
     casualMatrix = _extends({
       years: {
         quarters: 4,
@@ -4018,8 +4038,8 @@ var luxon = (function (exports) {
         dateTimes[_key] = arguments[_key];
       }
       var sorted = dateTimes.map(friendlyDateTime).filter(function (d) {
-          return _this.contains(d);
-        }).sort(),
+        return _this.contains(d);
+      }).sort(),
         results = [];
       var s = this.s,
         i = 0;
@@ -4160,18 +4180,18 @@ var luxon = (function (exports) {
      */;
     Interval.merge = function merge(intervals) {
       var _intervals$sort$reduc = intervals.sort(function (a, b) {
-          return a.s - b.s;
-        }).reduce(function (_ref2, item) {
-          var sofar = _ref2[0],
-            current = _ref2[1];
-          if (!current) {
-            return [sofar, item];
-          } else if (current.overlaps(item) || current.abutsStart(item)) {
-            return [sofar, current.union(item)];
-          } else {
-            return [sofar.concat([current]), item];
-          }
-        }, [[], null]),
+        return a.s - b.s;
+      }).reduce(function (_ref2, item) {
+        var sofar = _ref2[0],
+          current = _ref2[1];
+        if (!current) {
+          return [sofar, item];
+        } else if (current.overlaps(item) || current.abutsStart(item)) {
+          return [sofar, current.union(item)];
+        } else {
+          return [sofar.concat([current]), item];
+        }
+      }, [[], null]),
         found = _intervals$sort$reduc[0],
         final = _intervals$sort$reduc[1];
       if (final) {
@@ -4407,7 +4427,7 @@ var luxon = (function (exports) {
    * The Info class contains static methods for retrieving general time and date related data. For example, it has methods for finding out if a time zone has a DST, for listing the months in any supported locale, and for discovering which of Luxon features are available in the current environment.
    */
   var Info = /*#__PURE__*/function () {
-    function Info() {}
+    function Info() { }
     /**
      * Return whether the specified zone contains a DST.
      * @param {string|Zone} [zone='local'] - Zone to check. Defaults to the environment's local zone.
@@ -4621,10 +4641,10 @@ var luxon = (function (exports) {
 
   function dayDiff(earlier, later) {
     var utcDayStart = function utcDayStart(dt) {
-        return dt.toUTC(0, {
-          keepLocalTime: true
-        }).startOf("day").valueOf();
-      },
+      return dt.toUTC(0, {
+        keepLocalTime: true
+      }).startOf("day").valueOf();
+    },
       ms = utcDayStart(later) - utcDayStart(earlier);
     return Math.floor(Duration.fromMillis(ms).as("days"));
   }
@@ -4660,7 +4680,7 @@ var luxon = (function (exports) {
     }
     return [cursor, results, highWater, lowestOrder];
   }
-  function _diff (earlier, later, units, opts) {
+  function _diff(earlier, later, units, opts) {
     var _highOrderDiffs = highOrderDiffs(earlier, later, units),
       cursor = _highOrderDiffs[0],
       results = _highOrderDiffs[1],
@@ -4790,8 +4810,8 @@ var luxon = (function (exports) {
   }
   function stripInsensitivities(s) {
     return s.replace(/\./g, "") // ignore dots that were made optional
-    .replace(spaceOrNBSPRegExp, " ") // interchange space and nbsp
-    .toLowerCase();
+      .replace(spaceOrNBSPRegExp, " ") // interchange space and nbsp
+      .toLowerCase();
   }
   function oneOf(strings, startIndex) {
     if (strings === null) {
@@ -5583,13 +5603,13 @@ var luxon = (function (exports) {
 
   // defaults for unspecified units in the supported calendars
   var defaultUnitValues = {
-      month: 1,
-      day: 1,
-      hour: 0,
-      minute: 0,
-      second: 0,
-      millisecond: 0
-    },
+    month: 1,
+    day: 1,
+    hour: 0,
+    minute: 0,
+    second: 0,
+    millisecond: 0
+  },
     defaultWeekUnitValues = {
       weekNumber: 1,
       weekday: 1,
@@ -7062,8 +7082,8 @@ var luxon = (function (exports) {
       }
       if (!this.isValid) return null;
       var base = options.base || DateTime.fromObject({}, {
-          zone: this.zone
-        }),
+        zone: this.zone
+      }),
         padding = options.padding ? this < base ? -options.padding : options.padding : 0;
       var units = ["years", "months", "days", "hours", "minutes", "seconds"];
       var unit = options.unit;
