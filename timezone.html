@@ -29,8 +29,7 @@
     document.getElementById("warning").remove();
 
     document.getElementById("copyLink").addEventListener("click", () => {
-      document.getElementById("command").select();
-      document.execCommand("copy");
+      navigator.clipboard.writeText("/set timezone " + zone);
     })
   </script>
 </body>
